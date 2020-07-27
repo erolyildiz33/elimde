@@ -39,7 +39,6 @@ class Prediction extends CI_Controller
     }
     public function addnew(){
 
-
         $data=[ 'user_id'=>$this->session->userdata('user_id'),
                 'coin_name'=>$this->input->post('coin_name'),
                 'tahmin_sekli'=>$this->input->post('tahmin_sekli'),
@@ -48,11 +47,18 @@ class Prediction extends CI_Controller
 
 
         ];
-        if (!$this->input->post('offertype')){$data['plan']=$this->input->post('plan');
-            $data['tahmini_fiyat']=explode(" ",$this->input->post('approximativeprediction'))[1];}
-        else{
-            $data['tahmini_fiyat']=explode(" ",$this->input->post('exactprediction'))[1];
+        $offertype=$this->input->post("offertype");
+        if (isset($offertype)){
+            $data['tahmini_fiyat']=explode(" ",$this->input->post('exactprediction'))[1]+"x";
         }
+        else{
+            $data['plan']=$this->input->post('plan');
+            $data['tahmini_fiyat']=explode(" ",$this->input->post('approximativeprediction'))[1]+"x";
+        }
+        print_r($data);
+
+        die();
+
 
 
         $this->db->insert('tahminler',$data);
