@@ -1,0 +1,5 @@
+{
+    "require": {
+        "cryptoapis.io/php-sdk": "^1.0"
+    }
+}
